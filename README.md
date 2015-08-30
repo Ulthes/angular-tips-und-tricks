@@ -5,7 +5,7 @@ This documentation would not exist if not the great [AnuglarJS Design by John Pa
 
 ## Table of Contents
 
-1. [angular.isDefined vs JavaScript's '!'](#angular.isDefined-vs-JavaScript's-'!')
+1. [angular.isDefined vs JavaScript's '!'](#angularisdefined-vs-javascripts-)
 1. [Distributing reference among directives via service](#distributing-reference-among-directives-via-service)
 1. [Disposing watchers & events' bindings](#disposing-watchers-&-events'-bindings)
 1. [Calling parent directive's function from child directive](#calling-parent-directive's-function-from-child-directive)
@@ -15,4 +15,9 @@ This documentation would not exist if not the great [AnuglarJS Design by John Pa
 ### Angular.isDefined vs JavaScript's '!'
 
 Let's look at scenario where you have and object with properties and you need some property from that object, but you don't know whether this object (and property!) is null/undefined or not.
+If you use angular.isDefined you will only check if variable is different from undefined ONLY, whereas ! notation will check if variable is null or undefined.
+[Example]()
+
+If you want to check if object is defined/different from null just use !! (like !!someVariable)
+
 
