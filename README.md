@@ -16,6 +16,7 @@ This documentation would not exist if not the great [AnuglarJS Design by John Pa
 
 Let's look at scenario where you have and object with properties and you need some property from that object, but you don't know whether this object (and property!) is null/undefined or not.
 If you use angular.isDefined you will only check if variable is different from undefined ONLY, whereas !! notation will check if variable is different from null or undefined.
+
 [Example](http://codepen.io/Ulthes/pen/jbOBdb?editors=101)
 
 If you want to check if object is undefined/null just use ! (like !someVariable)
