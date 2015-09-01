@@ -1,7 +1,7 @@
 # angular-tips-und-tricks
 Tips and Tricks which helped me during my RIA development with AngularJS..
 ## Credits where credits due
-This documentation would not exist if not the great [AnuglarJS Design by John Papa](https://github.com/johnpapa/angular-styleguide). So, read his Style Guide before going through here.
+This documentation would not exist if not the great [AngularJS Design by John Papa](https://github.com/johnpapa/angular-styleguide). So, read his Style Guide before going through here.
 
 ## Table of Contents
 
@@ -21,4 +21,64 @@ If you use angular.isDefined you will only check if variable is different from u
 
 If you want to check if object is undefined/null just use ! (like !someVariable)
 
+### Distributing reference amons directives via service
 
+Normally, when we pass reference between directives we'd normally declare a variable inside controller, and then pass it through view by ng-model. However, this creates few problems:
+- We're polluting controller, which only creates a variable and (mostly) nothing else.
+- We're polluting the view.
+- Finally, we're creating two watchers (ng-model are watchers) for sending a single reference.
+
+Instead we could have done something like this:
+
+Create a service which exposes just one field:
+```javascript
+(function(){
+	angular
+		.module("app")
+		.service("someService", someService);
+
+	someService.$inject = [];
+
+
+	function someService(){
+		var service = {
+			reference = null;
+		}
+
+		return service;
+	}
+})();
+```
+
+This will be service which only exposes a reference to whatever entity will inject it.
+Now, let's make a directive which injects this service and assigns some object to 'reference':
+
+```javascript
+(function(){
+	angular.
+		.module("app")
+		.directive("firstDirective", firstDirective);
+
+	firstDirective.$inject = ["someService"];
+
+	function firstDirective(someService){
+		var directive = {
+			controller: MainController,
+			link = MainLink,
+			scope: {},
+			restrict: 'EA',
+			template: '',
+			controllerAs: 'vm',
+			bindToController: true
+		}
+
+		return directive;
+
+		function MainController(){
+			var vm = this;
+
+			vm.inputModel = someService.reference;
+		}
+	}
+})();
+```
