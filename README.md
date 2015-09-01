@@ -21,7 +21,7 @@ If you use angular.isDefined you will only check if variable is different from u
 
 If you want to check if object is undefined/null just use ! (like !someVariable)
 
-### Distributing reference amons directives via service
+### Distributing reference among directives via service
 
 Normally, when we pass reference between directives we'd normally declare a variable inside controller, and then pass it through view by ng-model. However, this creates few problems:
 - We're polluting controller, which only creates a variable and (mostly) nothing else.
