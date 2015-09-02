@@ -55,7 +55,7 @@ Now, let's make a directive which injects this service and assigns some function
 
 ```javascript
 (function(){
-	angular.
+	angular
 		.module("app")
 		.directive("firstDirective", firstDirective);
 
@@ -88,7 +88,7 @@ Now, let's make a directive which injects this service and assigns some function
 And now we're going to create a second directive which will activate function from first directive on button click:
 ```javascript
 (function(){
-	angular.
+	angular
 		.module("app")
 		.directive("secondDirective", secondDirective);
 
@@ -119,9 +119,3 @@ And now we're going to create a second directive which will activate function fr
 ```
 This way, when you click a button, function from firstDirective will be called. Of course, it's always better to use functions like that instead of watchers.
 Sure, you can use a watcher on a referenced object, you still will avoid polluting the view, so it this way, you are omitting the Angular's Scope and the $digest cycle.
-
-
-
-
-
-
