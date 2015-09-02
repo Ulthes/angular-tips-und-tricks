@@ -24,7 +24,7 @@ If you want to check if object is undefined/null just use ! (like !someVariable)
 ### Distributing reference among directives via service
 
 Normally, when we pass reference between directives we'd normally declare a variable inside controller, and then pass it through view by ng-model. However, this creates few problems:
-- We're polluting controller, which only creates a variable and (mostly) nothing else.
+- We're polluting controller, which only creates an object and (mostly) nothing else.
 - We're polluting the view.
 - Finally, we're creating two watchers (ng-model are watchers) for sending a single reference.
 
@@ -51,7 +51,7 @@ Create a service which exposes just one field:
 ```
 
 This will be service which only exposes a reference to whatever entity will inject it.
-Now, let's make a directive which injects this service and assigns some object to 'reference':
+Now, let's make a directive which injects this service and assigns some function to 'reference':
 
 ```javascript
 (function(){
@@ -64,7 +64,6 @@ Now, let's make a directive which injects this service and assigns some object t
 	function firstDirective(someService){
 		var directive = {
 			controller: MainController,
-			link = MainLink,
 			scope: {},
 			restrict: 'EA',
 			template: '',
@@ -77,8 +76,52 @@ Now, let's make a directive which injects this service and assigns some object t
 		function MainController(){
 			var vm = this;
 
-			vm.inputModel = someService.reference;
+			function showAlertBox(){
+				alert("I'm from first directive!");
+			}		
+			
+			someService.reference = showAlertBox;
 		}
 	}
 })();
 ```
+And now we're going to create a second directive which will activate function from first directive on button click:
+```javascript
+(function(){
+	angular.
+		.module("app")
+		.directive("secondDirective", secondDirective);
+
+	secondDirective.$inject = ["someService"];
+
+	function secondDirective(someService){
+		var directive = {
+			controller: MainController,
+			scope: {},
+			restrict: 'EA',
+			template: '<div><button type="button" ng-click="vm.OnButtonClick()"></button></div>'
+			controllerAs: 'vm',
+			bindToController: true
+		}
+
+		return directive;
+
+		function MainController(){
+			var vm = this;
+			vm.OnButtonClick = OnButtonClick;
+
+			function OnButtonClick(){
+				someService.reference();
+			}
+		}
+	}
+})();
+```
+This way, when you click a button, function from firstDirective will be called. Of course, it's always better to use functions like that instead of watchers.
+Sure, you can use a watcher on a referenced object, you still will avoid polluting the view, so it this way, you are omitting the Angular's Scope and the $digest cycle.
+
+
+
+
+
+
