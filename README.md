@@ -15,15 +15,15 @@ This documentation would not exist if not the great [AngularJS Design by John Pa
 ### Angular.isDefined vs JavaScript's '!!'
 
 Let's look at scenario where you have and object with properties and you need some property from that object, but you don't know whether this object (and property!) is null/undefined or not.
-If you use angular.isDefined you will only check if variable is different from undefined ONLY, whereas !! notation will check if variable is different from null or undefined.
+If you use `angular.isDefined` you will only check if variable is different from undefined ONLY, whereas `!!` notation will check if variable is different from `null` or `undefined`.
 
 [Example](http://codepen.io/Ulthes/pen/jbOBdb?editors=101)
 
-If you want to check if object is undefined/null just use ! (like !someVariable)
+If you want to check if object is `undefined`/`null` just use `!` (like `!someVariable`)
 
 ### Distributing reference among directives via service
 
-Normally, when we pass reference between directives we'd normally declare a variable inside controller, and then pass it through view by ng-model. However, this creates few problems:
+Normally, when we pass reference between directives we'd normally declare a variable inside controller, and then pass it through view by `ng-model`. However, this creates few problems:
 - We're polluting controller, which only creates an object and (mostly) nothing else.
 - We're polluting the view.
 - Finally, we're creating two watchers (ng-model are watchers) for sending a single reference.
@@ -51,7 +51,7 @@ Create a service which exposes just one field:
 ```
 
 This will be service which only exposes a reference to whatever entity will inject it.
-Now, let's make a directive which injects this service and assigns some function to 'reference':
+Now, let's make a directive which injects this service and assigns some function to `reference`:
 
 ```javascript
 (function(){
@@ -117,8 +117,8 @@ And now we're going to create a second directive which will activate function fr
 	}
 })();
 ```
-This way, when you click a button, function from firstDirective will be called. Of course, it's always better to use functions like that instead of watchers.
-Sure, you can use a watcher on a referenced object, you still will avoid polluting the view, so it this way, you are omitting the Angular's Scope and the $digest cycle.
+This way, when you click a button, function from `firstDirective` will be called. Of course, it's always better to use functions like that instead of watchers.
+Sure, you can use a `watcher` on a referenced object, you still will avoid polluting the view, so this way, you are omitting the Angular's `$scope` and the `$digest` cycle.
 
 [Example](http://codepen.io/Ulthes/pen/VvLZjd)
 
