@@ -42,7 +42,7 @@ Create a service which exposes just one field:
 
 	function someService(){
 		var service = {
-			reference = null;
+			reference : null
 		}
 
 		return service;
@@ -99,7 +99,7 @@ And now we're going to create a second directive which will activate function fr
 			controller: MainController,
 			scope: {},
 			restrict: 'EA',
-			template: '<div><button type="button" ng-click="vm.OnButtonClick()"></button></div>'
+			template: '<div><button type="button" ng-click="vm.OnButtonClick()">Click Me!</button></div>',
 			controllerAs: 'vm',
 			bindToController: true
 		}
@@ -120,6 +120,7 @@ And now we're going to create a second directive which will activate function fr
 This way, when you click a button, function from firstDirective will be called. Of course, it's always better to use functions like that instead of watchers.
 Sure, you can use a watcher on a referenced object, you still will avoid polluting the view, so it this way, you are omitting the Angular's Scope and the $digest cycle.
 
+[Example](http://codepen.io/Ulthes/pen/VvLZjd)
 
 
 
