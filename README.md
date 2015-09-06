@@ -14,7 +14,7 @@ This documentation would not exist if not the great [AngularJS Design by John Pa
 
 ### Angular.isDefined vs JavaScript's '!!'
 
-Let's look at scenario where you have and object with properties and you need some property from that object, but you don't know whether this object (and property!) is null/undefined or not.
+Let's look at scenario where you have and object with properties and you need some property from that object, but you don't know whether this object (and property!) is `null`/`undefined` or not.
 If you use `angular.isDefined` you will only check if variable is different from undefined ONLY, whereas `!!` notation will check if variable is different from `null` or `undefined`.
 
 [Example](http://codepen.io/Ulthes/pen/jbOBdb?editors=101)
@@ -55,7 +55,7 @@ Now, let's make a directive which injects this service and assigns some function
 
 ```javascript
 (function(){
-	angular.
+	angular
 		.module("app")
 		.directive("firstDirective", firstDirective);
 
@@ -88,7 +88,7 @@ Now, let's make a directive which injects this service and assigns some function
 And now we're going to create a second directive which will activate function from first directive on button click:
 ```javascript
 (function(){
-	angular.
+	angular
 		.module("app")
 		.directive("secondDirective", secondDirective);
 
@@ -121,8 +121,4 @@ This way, when you click a button, function from `firstDirective` will be called
 Sure, you can use a `watcher` on a referenced object, you still will avoid polluting the view, so this way, you are omitting the Angular's `$scope` and the `$digest` cycle.
 
 [Example](http://codepen.io/Ulthes/pen/VvLZjd)
-
-
-
-
 
