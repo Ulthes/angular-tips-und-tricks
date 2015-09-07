@@ -122,3 +122,19 @@ Sure, you can use a `watcher` on a referenced object, you still will avoid pollu
 
 [Example](http://codepen.io/Ulthes/pen/VvLZjd)
 
+### Disposing watchers & events' bindings
+
+Sometimes, when you really have to use watchers or bindings in directive or controller, it's good to dispose them once `$destroy` event shots. But then again, when there is a lot of code you might forget about them. It's good place to put them in object so afterwards you can clean it up just by using simple loop on it's properties.
+
+For instance, let's say we have 4 different watchers:
+```javascript
+EXAMPLE HERE
+```
+If we put them all in object, like this:
+```javascript
+EXAMPLE HERE
+```
+We can clear all watchers by doing this, once `$destroy` event fires up:
+```javascript
+EXAMPLE HERE
+```
