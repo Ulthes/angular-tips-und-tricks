@@ -147,7 +147,7 @@ function onDestroy(){
 	for (var key in Listeners){
 		Listeners[key]();
 	}		
-
-	$scope.$on("$destroy", onDestroy);
 }
+
+$scope.$on("$destroy", onDestroy);
 ```
