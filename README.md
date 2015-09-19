@@ -79,7 +79,7 @@ Now, let's make a directive which injects this service and assigns some function
 			function showAlertBox(){
 				alert("I'm from first directive!");
 			}		
-			
+
 			someService.reference = showAlertBox;
 		}
 	}
@@ -128,13 +128,26 @@ Sometimes, when you really have to use watchers or bindings in directive or cont
 
 For instance, let's say we have 4 different watchers:
 ```javascript
-EXAMPLE HERE
+$scope.$on("rootScopeEventOne", doSomethingOne);
+$scope.$on("rootScopeEventTwo", doSomethingTwo);
+$scope.$on("rootScopeEventThree", doSomethingThree);
+$scope.$on("rootScopeEventFour", doSomethingFour);
 ```
 If we put them all in object, like this:
 ```javascript
-EXAMPLE HERE
+var Listeners = {};
+Listeners.firstListener = $scope.$on("rootScopeEventOne", doSomethingOne);
+Listeners.secondListener = $scope.$on("rootScopeEventTwo", doSomethingTwo);
+Listeners.thirdListener = $scope.$on("rootScopeEventThree", doSomethingThree);
+Listeners.fourthListener = $scope.$on("rootScopeEventFour", doSomethingFour);
 ```
 We can clear all watchers by doing this, once `$destroy` event fires up:
 ```javascript
-EXAMPLE HERE
+function onDestroy(){
+	for (var key in Listeners){
+		Listeners[key]();
+	}		
+
+	$scope.$on("$destroy", onDestroy);
+}
 ```
