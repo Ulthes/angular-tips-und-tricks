@@ -152,3 +152,15 @@ We can clear all watchers by doing this, once `$destroy` event fires up:
     $scope.$on("$destroy", onDestroy);
 ```
 #### [Live Example](http://codepen.io/Ulthes/pen/Lpbpzb)
+
+### Calling parent directive's function from child directive
+
+In progress...
+
+### Directives and isolated scope
+
+In progress...
+
+### Clean up array without losing reference
+
+In progress...
