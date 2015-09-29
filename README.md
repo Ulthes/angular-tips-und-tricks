@@ -157,7 +157,13 @@ We can clear all watchers by doing this, once `$destroy` event fires up:
 
 In progress...
 
+#### Live Example Coming Soon
+
 ### Events broadcasts
+
+In progress...
+
+#### Live Example Coming Soon
 
 ### Clean up array without losing reference
 
