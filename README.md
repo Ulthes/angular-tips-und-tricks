@@ -166,9 +166,9 @@ In progress...
     $rootScope.$broadcast(..);
 ```
 #### __is a no-go!__ 
-When you use it, you send that event EVERYWHERE (and you probably just wanted to send event from/to controller/directive to/from directive). When you use that kind of broadcast you can slow down your application pretty much and cause lots of problems with synchonization between components.
+When you use it, you send that event __EVERYWHERE__ (and you probably just wanted to send event from/to controller/directive to/from directive). When you use that kind of broadcast you can slow down your application pretty much and cause lots of problems with synchonization between components.
 
-If you REALLY need to send an event, better use:
+If you __REALLY__ need to send an event, better use:
 ```javascript
     $scope.$broadcast(..);
 ```
