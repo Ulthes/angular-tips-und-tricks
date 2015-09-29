@@ -161,7 +161,9 @@ In progress...
 
 ### Events broadcasts
 
-In progress...
+Remember, `$rootScope.$broadcast()` is a no-go. When you use it, you send that event EVERYWHERE (and you probably just wanted to send event from/to controller/directive to/from directive). When you use that kind of broadcast you can slow down your application pretty much and cause lots of problems with synchonization between components.
+
+If you REALLY need to send an event, better use `$scope.$broadcast()` to send event from parent to children OR `$scope.$emit()` to send event from the child to parent. Either way, you keep it in the gean... geanola...you keep it in the family tree of the view.
 
 #### Live Example Coming Soon
 
