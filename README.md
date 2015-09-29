@@ -163,4 +163,16 @@ In progress...
 
 ### Clean up array without losing reference
 
-In progress...
+Let's say, you have an array, which is bound to the view (or it is referenced to some service endpoint) and you need to clean it up completely. You probably would use this:
+```javascript
+    someArray = [];
+```
+What does that do? It cleans up the array, sure, but at the same time you set a new instance of that array and completely loose any references of that array in other places.
+
+But, if you use it like this:
+```javascript
+    someArray.length = 0;
+```
+You clean up array and you keep reference.
+
+#### Live Example Coming Soon.
