@@ -151,11 +151,91 @@ We can clear all watchers by doing this, once `$destroy` event fires up:
 
     $scope.$on("$destroy", onDestroy);
 ```
+Same goes for `$watch`, like this:
+```javascript
+    var Listeners = {};
+    
+    Listeners.someWatcher = $watch("mouseclick", functionToEvaluateForClickEvent);
+    
+    function onDestroy(){
+        for (var key in Listeners){
+            Listeners[key]();
+        }
+        
+    }
+```
 #### [Live Example](http://codepen.io/Ulthes/pen/Lpbpzb)
 
 ### Calling parent directive's function from child directive
 
-In progress...
+You can call directive's function from another, if you assign it to the `this`.
+Let's assume we're going with John Papa's styleguide, so we would do this for every directive:
+
+```javascript
+var vm = this;
+```
+
+We're assigning the context's instance to variable `vm` and we're not polluting the `$scope`, but we can still use expose any variables and functions, which are assigned to the `vm`.
+Now comes the funny part.
+Once you expose the function in first directive, you can inform the second directive that it __requires__ the first directive. That way, you can use anything you have exposed in first directive to `vm`!
+
+```javascript
+(function(){
+    angular
+            .module("app")
+            .directive("firstDirective", firstDirective);
+
+        firstDirective.$inject = [];
+
+        function firstDirective(){
+            var directive = {
+                controller: MainController,
+                scope: {},
+                restrict: 'EA',
+                template: '',
+                controllerAs: 'vm',
+                bindToController: true
+            }
+
+            return directive;
+
+            function MainController(){
+                var vm = this;
+                vm.someFunctionToBeExposed = someFunctionToBeExposed;
+
+                function someFunctionToBeExposed(args){
+                    // do something here
+                }
+            }
+        }
+    
+        angular
+            .module("app")
+            .directive("secondDirective", secondDirective);
+
+        secondDirective.$inject = [];
+
+        function secondDirective(){
+            var directive = {
+                controller: MainController,
+                scope: {},
+                require: [^firstDirective], //important to work! The '^' sign informs the secondDirective to look for the firstDirective up the DOM tree.
+                restrict: 'EA',
+                template: '',
+                controllerAs: 'vm',
+                bindToController: true
+            }
+
+            return directive;
+
+            function MainController(required){ //inject the elements from 'require' array
+                var vm = this;
+                //Now, in order to invoke the function you use it like this:
+                required[0].someFunctionToBeExposed(someArguments);
+            }
+        }
+})();
+```
 
 #### Live Example Coming Soon
 
