@@ -8,7 +8,7 @@ This documentation would not exist if not the great [AngularJS Design by John Pa
 1. [angular.isDefined vs JavaScript's '!!'](#angularisdefined-vs-javascripts-)
 1. [Distributing reference among directives via service](#distributing-reference-among-directives-via-service)
 1. [Disposing watchers](#disposing-watchers)
-1. [Calling parent directive's function from child directive](#calling-parent-directive's-function-from-child-directive)
+1. [Calling parent directive's function from child directive](#calling-parent-directives-function-from-child-directive)
 1. [Events broadcasts](#events-broadcasts)
 1. [Clean up array without losing reference](#clean-up-array-without-losing-reference)
 
