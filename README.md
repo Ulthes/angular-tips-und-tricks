@@ -1,6 +1,7 @@
 # angular-tips-und-tricks
 Tips and Tricks which helped me during my RIA development with AngularJS..
 ## Credits where credits due
+
 This documentation would not exist if not the great [AngularJS Design by John Papa](https://github.com/johnpapa/angular-styleguide). So, read his Style Guide before going through here.
 
 ## Table of Contents
@@ -13,15 +14,18 @@ This documentation would not exist if not the great [AngularJS Design by John Pa
 1. [Clean up array without losing reference](#clean-up-array-without-losing-reference)
 
 ### Angular.isDefined vs JavaScript's '!!'
+---
 
 Let's look at scenario where you have and object with properties and you need some property from that object, but you don't know whether this object (and property!) is `null`/`undefined` or not.
 If you use `angular.isDefined` you will only check if variable is different from undefined ONLY, whereas `!!` notation will check if variable is different from `null` or `undefined`.
 
-#### [Live Example](http://codepen.io/Ulthes/pen/jbOBdb?editors=101)
+> [Live Example](http://codepen.io/Ulthes/pen/jbOBdb?editors=101)
 
 If you want to check if object is `undefined`/`null` just use `!` (like `!someVariable`)
 
+
 ### Distributing reference among directives via service
+---
 
 Normally, when we pass reference between directives we'd normally declare a variable inside controller, and then pass it through view by `ng-model`. However, this creates few problems:
 - We're polluting controller, which only creates an object and (mostly) nothing else.
@@ -120,9 +124,10 @@ And now we're going to create a second directive which will activate function fr
 This way, when you click a button, function from `firstDirective` will be called. Of course, it's always better to use functions like that instead of watchers.
 Sure, you can use a `watcher` on a referenced object, you still will avoid polluting the view, so this way, you are omitting the Angular's `$scope` and the `$digest` cycle.
 
-#### [Live Example](http://codepen.io/Ulthes/pen/VvLZjd)
+> [Live Example](http://codepen.io/Ulthes/pen/VvLZjd)
 
 ### Disposing watchers
+---
 
 Sometimes, when you really have to use watchers or bindings in directive or controller, it's good to dispose them once `$destroy` event shots. But then again, when there is a lot of code you might forget about them. It's good place to put them in object so afterwards you can clean it up just by using simple loop on it's properties.
 
@@ -164,9 +169,10 @@ Same goes for `$watch`, like this:
         
     }
 ```
-#### [Live Example](http://codepen.io/Ulthes/pen/Lpbpzb)
+> [Live Example](http://codepen.io/Ulthes/pen/Lpbpzb)
 
 ### Calling parent directive's function from child directive
+---
 
 You can call directive's function from another, if you assign it to the `this`.
 Let's assume we're going with John Papa's styleguide, so we would do this for every directive:
@@ -237,9 +243,10 @@ Once you expose the function in first directive, you can inform the second direc
 })();
 ```
 
-#### Live Example Coming Soon
+> Live Example Coming Soon
 
 ### Events broadcasts
+---
 
 #### __Remember:__
 ```javascript
@@ -258,9 +265,10 @@ to send event from parent to children OR:
 ```
 to send event from the child to parent. Either way, you keep it in the gean... geanola...you keep it in the family tree of the view.
 
-#### Live Example Coming Soon
+> Live Example Coming Soon
 
 ### Clean up array without losing reference
+---
 
 Let's say, you have an array, which is bound to the view (or it is referenced to some service endpoint) and you need to clean it up completely. You probably would use this:
 ```javascript
@@ -274,4 +282,4 @@ But, if you use it like this:
 ```
 You clean up array and you keep reference.
 
-#### Live Example Coming Soon.
+> Live Example Coming Soon.
