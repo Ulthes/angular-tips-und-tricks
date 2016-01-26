@@ -13,7 +13,7 @@ This documentation would not exist if not the great [AngularJS Design by John Pa
 1. [Events broadcasts](#events-broadcasts)
 1. [Clean up array without losing reference](#clean-up-array-without-losing-reference)
 
-### Angular.isDefined vs JavaScript's '!!'
+### __Angular.isDefined vs JavaScript's '!!'__
 ---
 
 Let's look at scenario where you have and object with properties and you need some property from that object, but you don't know whether this object (and property!) is `null`/`undefined` or not.
@@ -24,7 +24,7 @@ If you use `angular.isDefined` you will only check if variable is different from
 If you want to check if object is `undefined`/`null` just use `!` (like `!someVariable`)
 
 
-### Distributing reference among directives via service
+### __Distributing reference among directives via service__
 ---
 
 Normally, when we pass reference between directives we'd normally declare a variable inside controller, and then pass it through view by `ng-model`. However, this creates few problems:
@@ -126,7 +126,7 @@ Sure, you can use a `watcher` on a referenced object, you still will avoid pollu
 
 > [Live Example](http://codepen.io/Ulthes/pen/VvLZjd)
 
-### Disposing watchers
+### __Disposing watchers__
 ---
 
 Sometimes, when you really have to use watchers or bindings in directive or controller, it's good to dispose them once `$destroy` event shots. But then again, when there is a lot of code you might forget about them. It's good place to put them in object so afterwards you can clean it up just by using simple loop on it's properties.
@@ -171,7 +171,7 @@ Same goes for `$watch`, like this:
 ```
 > [Live Example](http://codepen.io/Ulthes/pen/Lpbpzb)
 
-### Calling parent directive's function from child directive
+### __Calling parent directive's function from child directive__
 ---
 
 You can call directive's function from another, if you assign it to the `this`.
@@ -245,7 +245,7 @@ Once you expose the function in first directive, you can inform the second direc
 
 > Live Example Coming Soon
 
-### Events broadcasts
+### __Events broadcasts__
 ---
 
 #### __Remember:__
@@ -267,7 +267,7 @@ to send event from the child to parent. Either way, you keep it in the gean... g
 
 > Live Example Coming Soon
 
-### Clean up array without losing reference
+### __Clean up array without losing reference__
 ---
 
 Let's say, you have an array, which is bound to the view (or it is referenced to some service endpoint) and you need to clean it up completely. You probably would use this:
