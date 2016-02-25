@@ -19,7 +19,7 @@ This documentation would not exist if not the great [AngularJS Design by John Pa
 Let's look at scenario where you have and object with properties and you need some property from that object, but you don't know whether this object (and property!) is `null`/`undefined` or not.
 If you use `angular.isDefined` you will only check if variable is different from undefined ONLY, whereas `!!` notation will check if variable is different from `null` or `undefined`.
 
-> [Live Example](http://codepen.io/Ulthes/pen/jbOBdb?editors=101)
+> __[Live Example](http://codepen.io/Ulthes/pen/jbOBdb?editors=101)__
 
 If you want to check if object is `undefined`/`null` just use `!` (like `!someVariable`)
 
@@ -124,7 +124,7 @@ And now we're going to create a second directive which will activate function fr
 This way, when you click a button, function from `firstDirective` will be called. Of course, it's always better to use functions like that instead of watchers.
 Sure, you can use a `watcher` on a referenced object, you still will avoid polluting the view, so this way, you are omitting the Angular's `$scope` and the `$digest` cycle.
 
-> [Live Example](http://codepen.io/Ulthes/pen/VvLZjd)
+> __[Live Example](http://codepen.io/Ulthes/pen/VvLZjd)__
 
 ### __Disposing watchers__
 ---
@@ -169,7 +169,7 @@ Same goes for `$watch`, like this:
         
     }
 ```
-> [Live Example](http://codepen.io/Ulthes/pen/Lpbpzb)
+> __[Live Example](http://codepen.io/Ulthes/pen/Lpbpzb)__
 
 ### __Calling parent directive's function from child directive__
 ---
