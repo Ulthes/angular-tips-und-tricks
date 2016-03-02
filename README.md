@@ -82,7 +82,7 @@ Now, let's make a directive which injects this service and assigns some function
 
                 function showAlertBox(){
                     alert("I'm from first directive!");
-                }		
+                }
 
                 someService.reference = showAlertBox;
             }
@@ -151,7 +151,7 @@ We can clear all watchers by doing this, once `$destroy` event fires up:
     function onDestroy(){
         for (var key in Listeners){
             Listeners[key]();
-        }		
+        }
     }
 
     $scope.$on("$destroy", onDestroy);
@@ -159,14 +159,14 @@ We can clear all watchers by doing this, once `$destroy` event fires up:
 Same goes for `$watch`, like this:
 ```javascript
     var Listeners = {};
-    
+
     Listeners.someWatcher = $watch("mouseclick", functionToEvaluateForClickEvent);
-    
+
     function onDestroy(){
         for (var key in Listeners){
             Listeners[key]();
         }
-        
+
     }
 ```
 > __[Live Example](http://codepen.io/Ulthes/pen/Lpbpzb)__
@@ -174,7 +174,7 @@ Same goes for `$watch`, like this:
 ### __Calling parent directive's function from child directive__
 ---
 
-You can call directive's function from another, if you assign it to the `this`.
+You can call parent directive's function from it's child, if you assign it to the `this`.
 Let's assume we're going with John Papa's styleguide, so we would do this for every directive:
 
 ```javascript
@@ -183,8 +183,7 @@ var vm = this;
 
 We're assigning the context's instance to variable `vm` and we're not polluting the `$scope`, but we can still use expose any variables and functions, which are assigned to the `vm`.
 Now comes the funny part.
-Once you expose the function in first directive, you can inform the second directive that it __requires__ the first directive. That way, you can use anything you have exposed in first directive to `vm`!
-
+Once you expose the function in first directive, you can inform the second directive that it __requires__ the first directive. That way, you can use anything you have exposed in first directive to `vm`.
 ```javascript
 (function(){
     angular
@@ -214,7 +213,7 @@ Once you expose the function in first directive, you can inform the second direc
                 }
             }
         }
-    
+
         angular
             .module("app")
             .directive("secondDirective", secondDirective);
@@ -223,9 +222,10 @@ Once you expose the function in first directive, you can inform the second direc
 
         function secondDirective(){
             var directive = {
+                link: MainLink,
                 controller: MainController,
                 scope: {},
-                require: [^firstDirective], //important to work! The '^' sign informs the secondDirective to look for the firstDirective up the DOM tree.
+                require: ['^firstDirective'], //important to work! The '^' sign informs the secondDirective to look for the firstDirective up the DOM tree.
                 restrict: 'EA',
                 template: '',
                 controllerAs: 'vm',
@@ -234,16 +234,20 @@ Once you expose the function in first directive, you can inform the second direc
 
             return directive;
 
-            function MainController(required){ //inject the elements from 'require' array
+            function MainController() {
                 var vm = this;
+            }
+
+            function MainLink(scope, element, attrs, firstDirectiveCtrl){ //inject the elements from 'require' array
                 //Now, in order to invoke the function you use it like this:
-                required[0].someFunctionToBeExposed(someArguments);
+                firstDirectiveCtrl[0].someFunctionToBeExposed(someArguments);
             }
         }
 })();
 ```
+For some reason I couldn't re-create communication with directives on the same DOM level. I'm not sure why, so be mindful that it might not work. More info about `require` in [AngularJS docs](https://docs.angularjs.org/api/ng/service/$compile#-require-):
 
-> Live Example Coming Soon
+> __[Live Example](http://codepen.io/Ulthes/pen/WwvjjL)__
 
 ### __Events broadcasts__
 ---
@@ -252,14 +256,14 @@ Once you expose the function in first directive, you can inform the second direc
 ```javascript
     $rootScope.$broadcast(..);
 ```
-#### __is a no-go!__ 
+#### __is a no-go!__
 When you use it, you send that event __EVERYWHERE__ (and you probably just wanted to send event from/to controller/directive to/from directive). When you use that kind of broadcast you can slow down your application pretty much and cause lots of problems with synchonization between components.
 
 If you __REALLY__ need to send an event, better use:
 ```javascript
     $scope.$broadcast(..);
 ```
-to send event from parent to children OR: 
+to send event from parent to children OR:
 ```javascript
     $scope.$emit(..);
 ```
